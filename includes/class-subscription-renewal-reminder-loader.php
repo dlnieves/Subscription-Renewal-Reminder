@@ -91,10 +91,12 @@ class Subscription_Renewal_Reminder_Loader {
 
 	/**
 	 * Register all with WordPress.
+	 * Calls the real "add_action" from Wordpress
 	 *
 	 * @since    1.0.0
 	 */
 	public function run() {
+
 
 		foreach ( $this->filters as $hook ) {
 			add_filter( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );

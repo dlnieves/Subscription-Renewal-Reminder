@@ -6,9 +6,6 @@ msgstr ""
 msgid "Settings"
 msgstr "Settings"
 
-msgid "subscription-renewal-reminder-settings-menu-title"
-msgstr "Subscription Renewal"
-
 
 # Spanish translation
 msgid ""
@@ -19,5 +16,3 @@ msgstr ""
 msgid "Settings"
 msgstr "Opciones"
 
-msgid "subscription-renewal-reminder-settings-menu-title"
-msgstr "Renovación de Suscripción"

@@ -6,7 +6,8 @@
  * @package    Subscription_Renewal_Reminder
  * @subpackage Subscription_Renewal_Reminder/includes
  */
-class Subscription_Renewal_Reminder {
+class Subscription_Renewal_Reminder
+{
 
 	/**
 	 * @access   protected
@@ -32,8 +33,9 @@ class Subscription_Renewal_Reminder {
 	 */
 	protected $version;
 
-	public function __construct() {
-		if ( defined( 'SUBSCRIPTION_RENEWAL_REMINDER_VERSION' ) ) { //defined in the activator
+	public function __construct()
+	{
+		if (defined('SUBSCRIPTION_RENEWAL_REMINDER_VERSION')) { //defined in the activator
 			$this->version = SUBSCRIPTION_RENEWAL_REMINDER_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -44,25 +46,25 @@ class Subscription_Renewal_Reminder {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
 	 * Load the required dependencies 
 	 * @access   private
 	 */
-	private function load_dependencies() {
+	private function load_dependencies()
+	{
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-subscription-renewal-reminder-loader.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-subscription-renewal-reminder-i18n.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-subscription-renewal-reminder-loader.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-subscription-renewal-reminder-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-subscription-renewal-reminder-i18n.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-subscription-renewal-reminder-public.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-subscription-renewal-reminder-admin.php';
+
+
 
 		$this->loader = new Subscription_Renewal_Reminder_Loader();
-
 	}
 
 	/**
@@ -70,12 +72,12 @@ class Subscription_Renewal_Reminder {
 	 * 
 	 * @access   private
 	 */
-	private function set_locale() {
+	private function set_locale()
+	{
 
 		$plugin_i18n = new Subscription_Renewal_Reminder_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
+		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
 
 	/**
@@ -85,13 +87,20 @@ class Subscription_Renewal_Reminder {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	private function define_admin_hooks()
+	{
 
-		$plugin_admin = new Subscription_Renewal_Reminder_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Subscription_Renewal_Reminder_Admin($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		//hooks for assets
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
+		//hook to prepare admin UI
+		$this->loader->add_action('admin_init', $plugin_admin, 'prepare_ui');
+
+		//hook to listen to the event that triggers emails
+		$this->loader->add_action('subscription-renewal-reminder-send-emails', $plugin_admin, 'send_emails');
 	}
 
 	/**
@@ -100,13 +109,13 @@ class Subscription_Renewal_Reminder {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks() {
+	private function define_public_hooks()
+	{
 
-		$plugin_public = new Subscription_Renewal_Reminder_Public( $this->get_plugin_name(), $this->get_version() );
+		/*$plugin_public = new Subscription_Renewal_Reminder_Public($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');*/
 	}
 
 	/**
@@ -114,7 +123,8 @@ class Subscription_Renewal_Reminder {
 	 *
 	 * @since    1.0.0
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->loader->run();
 	}
 
@@ -122,7 +132,8 @@ class Subscription_Renewal_Reminder {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
+	public function get_plugin_name()
+	{
 		return $this->plugin_name;
 	}
 
@@ -132,7 +143,8 @@ class Subscription_Renewal_Reminder {
 	 * @since     1.0.0
 	 * @return    Subscription_Renewal_Reminder_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
+	public function get_loader()
+	{
 		return $this->loader;
 	}
 
@@ -142,8 +154,8 @@ class Subscription_Renewal_Reminder {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function get_version()
+	{
 		return $this->version;
 	}
-
 }

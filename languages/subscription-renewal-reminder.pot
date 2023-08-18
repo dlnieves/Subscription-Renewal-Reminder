@@ -3,11 +3,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: en_US\n"
 
-msgid "Hey, %s!"
-msgstr "Hey, %s!"
+msgid "Settings"
+msgstr "Settings"
 
-msgid "Your subscription will be renewed in %s days."
-msgstr "Your subscription will be renewed in %s days."
+msgid "subscription-renewal-reminder-settings-menu-title"
+msgstr "Subscription Renewal"
 
 
 # Spanish translation
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: es_ES\n"
 
-msgid "Hey, %s!"
-msgstr "Hola, %s!"
+msgid "Settings"
+msgstr "Opciones"
 
-msgid "Your subscription will be renewed in %s days."
-msgstr "Su suscripción será renovada en %s días."
+msgid "subscription-renewal-reminder-settings-menu-title"
+msgstr "Renovación de Suscripción"

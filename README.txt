@@ -10,6 +10,7 @@ This plugin sends emails to remind subscribers that their subscription will be r
 
 == Installation ==
 
+- run "xgettext" in order to detect translations
 - Upload `subscription-renewal-reminder.php` to the `/wp-content/plugins/` directory.
 - Activate the plugin.
 
